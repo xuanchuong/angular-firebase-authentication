@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 
@@ -9,7 +9,7 @@ import {AuthService} from "../../service/auth.service";
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn$: Observable<boolean> | undefined;
+  isLoggedIn$ = new BehaviorSubject(false);
 
   selectedItem: string | undefined;
 
@@ -17,11 +17,19 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isLoggedIn$ = new BehaviorSubject<boolean>(this.authService.isLoggedIn);
     this.selectedItem = 'home';
   }
 
   onSelect(item: string): void {
     this.selectedItem = item;
+  }
+
+  getDisplayName() {
+    if (this.authService.userData) {
+      return this.authService.userData.displayName;
+    } else {
+      return '';
+    }
   }
 }

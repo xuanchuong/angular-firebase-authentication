@@ -18,6 +18,10 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 // Auth service
 import { AuthService } from "./shared/service/auth.service";
 import {HeaderComponent} from "./shared/layout/header/header.component";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import {HeaderComponent} from "./shared/layout/header/header.component";
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NoopAnimationsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

@@ -29,7 +29,6 @@ export class AuthService {
         JSON.parse(<string>localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', "");
-        JSON.parse(<string>localStorage.getItem('user'));
       }
     })
   }
@@ -70,13 +69,13 @@ export class AuthService {
 
   }
 
-  get isLoggedIn(): Observable<boolean> {
+  get isLoggedIn(): boolean {
     const loginUser = localStorage.getItem("user");
-    if (loginUser == null || loginUser === '') {
-      return new BehaviorSubject<boolean>(false);
+    if (loginUser == undefined || loginUser == "") {
+      return false;
     }
     const user = JSON.parse(loginUser);
-    return new BehaviorSubject<boolean>(user !== null && user.emailVerified !== false);
+    return user !== null && user.emailVerified !== false;
   }
 
   GoogleAuth() {

@@ -2,10 +2,10 @@
 	<div class="container">
 		<section class="navigator-bar masthead-wrap">
 			<div class="my-avatar">
-				<a routerLink="/home">
+				<a routerLink="/">
           <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(authService.userData && authService.userData.photoURL)
           ? authService.userData.photoURL : '../../../../assets/img/me.svg'}}"
-               alt="{{authService.userData.displayName}}">
+               alt="{{this.getDisplayName()}}">
 				</a>
 			</div>
 			<div class="navigator-bar left-side-navigator-bar">
