@@ -17,6 +17,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 
 // Auth service
 import { AuthService } from "./shared/service/auth.service";
+import {HeaderComponent} from "./shared/layout/header/header.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AuthService } from "./shared/service/auth.service";
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    HeaderComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

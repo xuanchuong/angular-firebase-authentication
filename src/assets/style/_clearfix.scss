@@ -1,0 +1,60 @@
+::ng-deep * {
+	box-sizing: border-box;
+}
+
+::ng-deep html {
+	height: 100%;
+}
+
+::ng-deep body {
+	font-family: $fontFamily;
+	font-size: $fontSize;
+	color: $textColor;
+	-webkit-font-smoothing: antialiased;
+	padding: 0;
+	margin: 0;
+	min-height: 100%;
+	background-color: $bodyBgColor; .ajax-loader { font-size : 32px;
+	color: $accentColor;
+}
+
+}
+::ng-deep p {
+	font-size: 1.5em;
+}
+
+::ng-deep h1 {
+	font-size: 2em;
+	font-weight: 400;
+}
+
+::ng-deep h2 {
+	font-size: 1.5em;
+	font-weight: 400;
+}
+
+::ng-deep h3 {
+	font-size: 1.3em;
+	font-weight: 500;
+}
+
+::ng-deep h4 {
+	font-size: 1em;
+}
+
+::ng-deep h5 {
+	font-size: 0.8em;
+}
+
+::ng-deep a {
+	font-weight: 400;
+	cursor: pointer;
+	text-decoration: none;
+	&:hover {
+		color: #1ba0e2;
+	}
+}
+
+::ng-deep ul {
+	list-style-type: none;
+}
