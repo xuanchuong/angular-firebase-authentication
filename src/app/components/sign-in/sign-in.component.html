@@ -15,18 +15,14 @@
     </div>
 
     <div class="form-actions">
-      <div class="left-div">
+      <div class="action-item left-div">
         <button class="btn">Log in</button>
       </div>
-      <div class="right-div">
+      <div class="action-item right-div register-item">
         <div>Not account yet?</div>
         <a routerLink="/register-user" class="register-link">Register</a>
       </div>
-      <div class="right-div">
-        <div>Forget your password?</div>
-        <a routerLink="/forgot-password" class="register-link">Register</a>
-      </div>
-      <div class="right-div">
+      <div class="action-item right-div">
         <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
           <i class="fab fa-google-plus-g"></i>
           Log in with Google
