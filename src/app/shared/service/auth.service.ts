@@ -5,7 +5,6 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/f
 import {Router} from "@angular/router";
 import firebase from 'firebase/compat/app';
 import auth = firebase.auth;
-import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +55,15 @@ export class AuthService {
         this.setUserData(result.user);
       }).catch((error) => {
         window.alert(error.message)
+      })
+  }
+
+  ForgotPassword(passwordResetEmail: string) {
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        this.router.navigate(['/']).then()
+      }).catch((error) => {
+        window.alert(error)
       })
   }
 
