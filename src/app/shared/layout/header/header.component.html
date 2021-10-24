@@ -1,31 +1,36 @@
 <div class="layout-topbar">
-	<div class="container">
-		<section class="navigator-bar masthead-wrap">
-			<div class="my-avatar">
-				<a routerLink="/">
-          <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(authService.userData && authService.userData.photoURL)
-          ? authService.userData.photoURL : '../../../../assets/img/me.svg'}}"
+  <div class="container">
+    <section class="navigator-bar masthead-wrap">
+      <div class="my-avatar">
+        <a routerLink="/">
+          <img *ngIf="(isLoggedIn$ | async)"
+               class="align-self-start mr-5 img-thumbnail rounded-circle"
+               src="{{getPhotoUrl()}}"
                alt="{{this.getDisplayName()}}">
-				</a>
-			</div>
-			<div class="navigator-bar left-side-navigator-bar">
-				<ul>
-					<li (click)="onSelect('home')" [class.selected]="'home' === selectedItem">
-						<a routerLink="/dashboard">home</a>
-					</li>
-					<li *ngIf="!(isLoggedIn$ | async)" (click)="onSelect('login')"
-						[class.selected]="'login' === selectedItem">
-						<a routerLink="/sign-in">login</a>
-					</li>
-					<li (click)="authService.SignOut()" *ngIf="isLoggedIn$ | async">
-						<a>logout</a>
-					</li>
-					<li *ngIf="!(isLoggedIn$ | async)" (click)="onSelect('sign-in')"
-						[class.selected]="'sign-in' === selectedItem">
-						<a routerLink="register-user">sign-up</a>
-					</li>
-				</ul>
-			</div>
-		</section>
-	</div>
+          <img *ngIf="!(isLoggedIn$ | async)"
+               class="align-self-start mr-5 img-thumbnail rounded-circle"
+               src="../../../../assets/img/me.svg"
+               alt="{{this.getDisplayName()}}">
+        </a>
+      </div>
+      <div class="navigator-bar left-side-navigator-bar">
+        <ul>
+          <li (click)="onSelect('home')" [class.selected]="'home' === selectedItem">
+            <a routerLink="/dashboard">home</a>
+          </li>
+          <li *ngIf="!(isLoggedIn$ | async)" (click)="onSelect('login')"
+              [class.selected]="'login' === selectedItem">
+            <a routerLink="/sign-in">login</a>
+          </li>
+          <li (click)="authService.SignOut()" *ngIf="isLoggedIn$ | async">
+            <a>logout</a>
+          </li>
+          <li *ngIf="!(isLoggedIn$ | async)" (click)="onSelect('sign-in')"
+              [class.selected]="'sign-in' === selectedItem">
+            <a routerLink="register-user">sign-up</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
 </div>

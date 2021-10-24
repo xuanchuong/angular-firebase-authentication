@@ -4,6 +4,7 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/firestore';
 import {Router} from "@angular/router";
 import firebase from 'firebase/compat/app';
+import {BehaviorSubject} from "rxjs";
 import auth = firebase.auth;
 
 @Injectable({
@@ -11,7 +12,8 @@ import auth = firebase.auth;
 })
 export class AuthService {
 
-  userData: any; // Save logged in user data
+  userData: firebase.User | undefined; // Save logged in user data
+  private loggedIn = new BehaviorSubject(false);
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -19,15 +21,23 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
+    const loginUser = localStorage.getItem("user");
+    if (loginUser == undefined || loginUser == "") {
+      this.loggedIn.next(false);
+    } else {
+      this.loggedIn.next(true);
+    }
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
+        this.loggedIn.next(true);
         JSON.parse(<string>localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', "");
+        this.loggedIn.next(false);
       }
     })
   }
@@ -40,6 +50,7 @@ export class AuthService {
           this.router.navigate(['dashboard']);
         });
         this.setUserData(result.user);
+        this.loggedIn.next(true);
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -77,13 +88,8 @@ export class AuthService {
 
   }
 
-  get isLoggedIn(): boolean {
-    const loginUser = localStorage.getItem("user");
-    if (loginUser == undefined || loginUser == "") {
-      return false;
-    }
-    const user = JSON.parse(loginUser);
-    return user !== null && user.emailVerified !== false;
+  get isLoggedIn(): BehaviorSubject<boolean> {
+    return this.loggedIn;
   }
 
   GoogleAuth() {
@@ -123,6 +129,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
+      this.loggedIn.next(false);
       this.router.navigate(['sign-in']);
     })
   }

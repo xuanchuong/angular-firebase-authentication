@@ -1,4 +1,4 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 
@@ -9,15 +9,16 @@ import {AuthService} from "../../service/auth.service";
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn$ = new BehaviorSubject(false);
+  isLoggedIn$: Observable<boolean>;
 
   selectedItem: string | undefined;
 
   constructor(public authService: AuthService) {
+    this.isLoggedIn$ = this.authService.isLoggedIn.asObservable();
   }
 
   ngOnInit() {
-    this.isLoggedIn$ = new BehaviorSubject<boolean>(this.authService.isLoggedIn);
+    this.isLoggedIn$ = this.authService.isLoggedIn;
     this.selectedItem = 'home';
   }
 
@@ -30,6 +31,14 @@ export class HeaderComponent implements OnInit {
       return this.authService.userData.displayName;
     } else {
       return '';
+    }
+  }
+
+  getPhotoUrl() {
+    if (this.authService.userData) {
+      return this.authService.userData.photoURL;
+    } else {
+      return '../../../../assets/img/me.svg';
     }
   }
 }
